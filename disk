@@ -1,0 +1,2 @@
+#!/bin/sh
+printf "%s %s" "$1" "$(df -h "$1" | awk '/[0-9]/ {print $4}')"

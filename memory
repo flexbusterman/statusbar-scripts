@@ -1,0 +1,8 @@
+#!/bin/sh
+
+free --mebi | awk '/Mem/ {
+  if ($7 >= 1024)
+    printf "RAM %.1fG\n", $7/1024
+  else
+    printf "RAM %dMB\n", $7
+}'
