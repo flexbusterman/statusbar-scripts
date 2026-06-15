@@ -1,3 +1,5 @@
 #!/bin/sh
 cat /tmp/trafup
-sar -n DEV 1 1 | awk '/Average.*wlp/ || /Average.*wlan0/ {print $6}' | sed 's/[.,].*//' >/tmp/trafup
+iface=$(ip route show default | awk '{print $5; exit}')
+sar -n DEV 1 1 | awk -v i="$iface" '$0 ~ "Average.*"i" " {print $6}' | sed 's/[.,].*//' >/tmp/trafup
+# sar -n DEV 1 1 | awk '/Average.*wlp/ || /Average.*wlan0/ {print $6}' | sed 's/[.,].*//' >/tmp/trafup
