@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-iwgetid -r
+ssid="$(iwgetid -r)"
+[ -n "$ssid" ] && {
+	printf '%s\n' "$ssid"
+	exit 0
+}
+ip -br -4 addr show up scope global | awk 'NF>=3 {print $1; exit}'
